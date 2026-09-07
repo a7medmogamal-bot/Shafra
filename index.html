@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0f1e">
+    <meta name="description" content="شَفْرَة - محادثاتك، خصوصيتك.">
+    <title>شَفْرَة — SHAFRA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+    <!-- ==================== SPLASH SCREEN ==================== -->
+    <div id="splashScreen" class="screen active">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="30" width="140" height="140" rx="30" fill="none" stroke="url(#grad1)" stroke-width="6"/>
+                    <path d="M70 70 L130 70 M70 100 L130 100 M70 130 L100 130" stroke="url(#grad1)" stroke-width="6" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="grad1" x1="30" y1="30" x2="170" y2="170">
+                            <stop offset="0%" stop-color="#00d4ff"/>
+                            <stop offset="100%" stop-color="#7b2fff"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h1 class="splash-title">شَفْرَة</h1>
+            <p class="splash-subtitle">محادثاتك، خصوصيتك.</p>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== AUTH SCREEN ==================== -->
+    <div id="authScreen" class="screen">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="15" y="15" width="70" height="70" rx="15" fill="none" stroke="url(#grad2)" stroke-width="4"/>
+                    <path d="M35 35 L65 35 M35 50 L65 50 M35 65 L50 65" stroke="url(#grad2)" stroke-width="4" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="grad2" x1="15" y1="15" x2="85" y2="85">
+                            <stop offset="0%" stop-color="#00d4ff"/>
+                            <stop offset="100%" stop-color="#7b2fff"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h2 class="auth-title">تسجيل الدخول</h2>
+            <p class="auth-subtitle">مرحبًا بعودتك إلى شَفْرَة</p>
+
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginIdentifier">البريد الإلكتروني أو رقم الهاتف</label>
+                    <input type="text" id="loginIdentifier" placeholder="example@email.com" autocomplete="email">
+                    <div class="error-message" id="loginIdentifierError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">كلمة المرور</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" placeholder="كلمة المرور" autocomplete="current-password">
+                        <button type="button" class="toggle-password" id="toggleLoginPassword">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="error-message" id="loginPasswordError"></div>
+                </div>
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span class="btn-text">تسجيل الدخول</span>
+                    <span class="btn-loader hidden"></span>
+                </button>
+            </form>
+
+            <div class="auth-divider">
+                <span>أو</span>
+            </div>
+
+            <button class="btn-secondary" id="showRegister">إنشاء حساب جديد</button>
+        </div>
+    </div>
+
+    <!-- ==================== REGISTER SCREEN ==================== -->
+    <div id="registerScreen" class="screen">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="15" y="15" width="70" height="70" rx="15" fill="none" stroke="url(#grad3)" stroke-width="4"/>
+                    <path d="M35 35 L65 35 M35 50 L65 50 M35 65 L50 65" stroke="url(#grad3)" stroke-width="4" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="grad3" x1="15" y1="15" x2="85" y2="85">
+                            <stop offset="0%" stop-color="#00d4ff"/>
+                            <stop offset="100%" stop-color="#7b2fff"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h2 class="auth-title">إنشاء حساب</h2>
+            <p class="auth-subtitle">انضم إلى شَفْرَة وابدأ محادثاتك الآمنة</p>
+
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="regName">الاسم الكامل</label>
+                    <input type="text" id="regName" placeholder="أدخل اسمك" autocomplete="name">
+                    <div class="error-message" id="regNameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">البريد الإلكتروني</label>
+                    <input type="email" id="regEmail" placeholder="example@email.com" autocomplete="email">
+                    <div class="error-message" id="regEmailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">رقم الهاتف</label>
+                    <input type="tel" id="regPhone" placeholder="+20xxxxxxxxx" autocomplete="tel">
+                    <div class="error-message" id="regPhoneError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">كلمة المرور</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="regPassword" placeholder="12 حرف على الأقل" autocomplete="new-password">
+                        <button type="button" class="toggle-password" data-target="regPassword">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="error-message" id="regPasswordError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirmPassword">تأكيد كلمة المرور</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="regConfirmPassword" placeholder="أعد إدخال كلمة المرور" autocomplete="new-password">
+                        <button type="button" class="toggle-password" data-target="regConfirmPassword">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="error-message" id="regConfirmPasswordError"></div>
+                </div>
+                <button type="submit" class="btn-primary" id="registerBtn">
+                    <span class="btn-text">إنشاء الحساب</span>
+                    <span class="btn-loader hidden"></span>
+                </button>
+            </form>
+
+            <button class="btn-back" id="backToLogin">لديك حساب بالفعل؟ تسجيل الدخول</button>
+        </div>
+    </div>
+
+    <!-- ==================== OTP SCREEN ==================== -->
+    <div id="otpScreen" class="screen">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="15" y="15" width="70" height="70" rx="15" fill="none" stroke="url(#grad4)" stroke-width="4"/>
+                    <path d="M35 35 L65 35 M35 50 L65 50 M35 65 L50 65" stroke="url(#grad4)" stroke-width="4" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="grad4" x1="15" y1="15" x2="85" y2="85">
+                            <stop offset="0%" stop-color="#00d4ff"/>
+                            <stop offset="100%" stop-color="#7b2fff"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h2 class="auth-title">تأكيد الحساب</h2>
+            <p class="auth-subtitle">أدخل رمز التحقق المرسل إليك</p>
+
+            <div class="otp-container">
+                <input type="text" maxlength="1" class="otp-input" data-index="0">
+                <input type="text" maxlength="1" class="otp-input" data-index="1">
+                <input type="text" maxlength="1" class="otp-input" data-index="2">
+                <input type="text" maxlength="1" class="otp-input" data-index="3">
+                <input type="text" maxlength="1" class="otp-input" data-index="4">
+                <input type="text" maxlength="1" class="otp-input" data-index="5">
+            </div>
+            <div class="error-message" id="otpError"></div>
+
+            <div class="otp-timer">
+                <span id="otpTimerText">00:30</span>
+            </div>
+
+            <button type="button" class="btn-primary" id="verifyOtpBtn">
+                <span class="btn-text">تأكيد الحساب</span>
+                <span class="btn-loader hidden"></span>
+            </button>
+
+            <button type="button" class="btn-resend" id="resendOtpBtn" disabled>إعادة إرسال الرمز</button>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN APP ==================== -->
+    <div id="mainApp" class="screen">
+        <div class="app-container">
+            
+            <!-- Sidebar / Navigation -->
+            <nav class="app-nav" id="appNav">
+                <div class="nav-header">
+                    <div class="nav-logo">
+                        <svg width="30" height="30" viewBox="0 0 100 100" fill="none">
+                            <rect x="15" y="15" width="70" height="70" rx="15" fill="none" stroke="#00d4ff" stroke-width="4"/>
+                            <path d="M35 35 L65 35 M35 50 L65 50 M35 65 L50 65" stroke="#00d4ff" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="nav-title">شَفْرَة</span>
+                </div>
+                <div class="nav-items">
+                    <button class="nav-item active" data-view="chats">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        <span>المحادثات</span>
+                    </button>
+                    <button class="nav-item" data-view="friends">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        <span>الأصدقاء</span>
+                    </button>
+                    <button class="nav-item" data-view="qr">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7" rx="1"/>
+                            <rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1"/>
+                            <path d="M14 14h3v3h-3z M21 14v3 M14 21h3 M21 21v-3"/>
+                        </svg>
+                        <span>رمز QR</span>
+                    </button>
+                    <button class="nav-item" data-view="settings">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                        <span>الإعدادات</span>
+                    </button>
+                </div>
+                <div class="nav-footer">
+                    <div class="user-mini" id="navUserMini">
+                        <div class="user-avatar">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="#00d4ff">
+                                <circle cx="12" cy="8" r="4" fill="currentColor"/>
+                                <path d="M4 21v-2a8 8 0 0 1 16 0v2" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <span id="navUserName">مستخدم</span>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <main class="app-main">
+                
+                <!-- ============ CHATS VIEW ============ -->
+                <div id="chatsView" class="view active">
+                    <header class="view-header">
+                        <div class="header-left">
+                            <h1>المحادثات</h1>
+                        </div>
+                        <div class="header-actions">
+                            <button class="icon-btn" id="searchChatsBtn" title="بحث">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="M21 21l-4.35-4.35"/>
+                                </svg>
+                            </button>
+                            <button class="icon-btn" id="addFriendBtn" title="إضافة صديق">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="8.5" cy="7" r="4"/>
+                                    <line x1="20" y1="8" x2="20" y2="14"/>
+                                    <line x1="23" y1="11" x2="17" y2="11"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </header>
+                    <div class="search-bar hidden" id="searchBar">
+                        <input type="text" id="searchChatsInput" placeholder="بحث في المحادثات...">
+                    </div>
+                    <div class="chats-list" id="chatsList">
+                        <!-- Chats will be loaded here -->
+                    </div>
+                    <div class="empty-state" id="emptyChats">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        <h3>لا توجد محادثات</h3>
+                        <p>أضف صديقًا لبدء محادثة جديدة</p>
+                        <button class="btn-primary" id="emptyAddFriend">إضافة صديق</button>
+                    </div>
+                </div>
+
+                <!-- ============ FRIENDS VIEW ============ -->
+                <div id="friendsView" class="view">
+                    <header class="view-header">
+                        <h1>الأصدقاء</h1>
+                        <div class="header-actions">
+                            <button class="icon-btn" id="scanQrBtn" title="مسح QR">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+                                    <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+                                    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+                                    <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+                                    <line x1="7" y1="12" x2="17" y2="12"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </header>
+                    <div class="friends-tabs">
+                        <button class="friend-tab active" data-tab="all">الأصدقاء</button>
+                        <button class="friend-tab" data-tab="requests">طلبات الصداقة</button>
+                    </div>
+                    <div class="friends-list" id="friendsList">
+                        <!-- Friends will be loaded here -->
+                    </div>
+                    <div class="empty-state" id="emptyFriends">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                        </svg>
+                        <h3>لا يوجد أصدقاء</h3>
+                        <p>امسح رمز QR لإضافة صديق جديد</p>
+                        <button class="btn-primary" id="emptyScanQr">مسح QR</button>
+                    </div>
+                </div>
+
+                <!-- ============ QR VIEW ============ -->
+                <div id="qrView" class="view">
+                    <header class="view-header">
+                        <h1>رمز QR الخاص بي</h1>
+                    </header>
+                    <div class="qr-container">
+                        <div class="qr-code" id="myQrCode">
+                            <!-- QR will be generated here -->
+                        </div>
+                        <p class="qr-info">امسح هذا الرمز لإضافتك كصديق</p>
+                        <div class="qr-user-info">
+                            <div class="user-avatar">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="#00d4ff">
+                                    <circle cx="12" cy="8" r="4" fill="currentColor"/>
+                                    <path d="M4 21v-2a8 8 0 0 1 16 0v2" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 id="qrUserName">مستخدم</h3>
+                                <p id="qrUserId">SHAFRA-ID</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============ SETTINGS VIEW ============ -->
+                <div id="settingsView" class="view">
+                    <header class="view-header">
+                        <h1>الإعدادات</h1>
+                    </header>
+                    <div class="settings-container">
+                        <!-- Account Section -->
+                        <div class="settings-section">
+                            <h3>الحساب</h3>
+                            <div class="settings-item" id="settingsProfile">
+                                <span>الملف الشخصي</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                            </div>
+                            <div class="settings-item" id="settingsEmail">
+                                <span>البريد الإلكتروني</span>
+                                <span id="settingsEmailValue">-</span>
+                            </div>
+                            <div class="settings-item" id="settingsPhone">
+                                <span>رقم الهاتف</span>
+                                <span id="settingsPhoneValue">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Privacy Section -->
+                        <div class="settings-section">
+                            <h3>الخصوصية</h3>
+                            <div class="settings-item" id="settingsBlocked">
+                                <span>المستخدمون المحظورون</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Security Section -->
+                        <div class="settings-section">
+                            <h3>الأمان</h3>
+                            <div class="settings-item" id="settingsChangePassword">
+                                <span>تغيير كلمة المرور</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                            </div>
+                            <div class="settings-item" id="settingsSessions">
+                                <span>إدارة الجلسات</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                            </div>
+                            <div class="settings-item">
+                                <span>التشفير</span>
+                                <span class="badge-green">E2E</span>
+                            </div>
+                        </div>
+
+                        <!-- Notifications Section -->
+                        <div class="settings-section">
+                            <h3>الإشعارات</h3>
+                            <div class="settings-item">
+                                <span>تفعيل الإشعارات</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="notificationsToggle" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- App Section -->
+                        <div class="settings-section">
+                            <h3>التطبيق</h3>
+                            <div class="settings-item">
+                                <span>اللغة</span>
+                                <span>العربية</span>
+                            </div>
+                            <div class="settings-item">
+                                <span>المظهر</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="themeToggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="settings-item">
+                                <span>معلومات التطبيق</span>
+                                <span>v1.0.0</span>
+                            </div>
+                        </div>
+
+                        <button class="btn-danger" id="logoutBtn">تسجيل الخروج</button>
+                        <button class="btn-danger-outline" id="deleteAccountBtn">حذف الحساب</button>
+                    </div>
+                </div>
+
+                <!-- ============ CHAT VIEW ============ -->
+                <div id="chatView" class="view overlay-view">
+                    <header class="chat-header">
+                        <button class="icon-btn" id="backToChats">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5 M12 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <div class="chat-header-user">
+                            <div class="user-avatar">
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="#00d4ff">
+                                    <circle cx="12" cy="8" r="4" fill="currentColor"/>
+                                    <path d="M4 21v-2a8 8 0 0 1 16 0v2" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 id="chatUserName">اسم المستخدم</h3>
+                                <p id="chatUserStatus">متصل</p>
+                            </div>
+                        </div>
+                        <button class="icon-btn" id="chatMenuBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="1"/>
+                                <circle cx="19" cy="12" r="1"/>
+                                <circle cx="5" cy="12" r="1"/>
+                            </svg>
+                        </button>
+                    </header>
+
+                    <div class="messages-container" id="messagesContainer">
+                        <!-- Messages will be loaded here -->
+                    </div>
+
+                    <div class="chat-input-container">
+                        <input type="text" id="messageInput" placeholder="اكتب رسالة...">
+                        <button class="btn-send" id="sendMessageBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13"/>
+                                <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ==================== QR SCANNER MODAL ==================== -->
+    <div id="qrScannerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>مسح رمز QR</h3>
+                <button class="icon-btn" id="closeQrScanner">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18 M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="qr-scanner-container">
+                <video id="qrVideo" autoplay playsinline></video>
+                <div class="qr-scanner-overlay">
+                    <div class="qr-scanner-frame"></div>
+                </div>
+            </div>
+            <p class="qr-scanner-info">وجه الكاميرا نحو رمز QR للشخص الذي تريد إضافته</p>
+        </div>
+    </div>
+
+    <!-- ==================== FRIEND REQUEST RESULT MODAL ==================== -->
+    <div id="friendRequestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>طلب صداقة</h3>
+                <button class="icon-btn" id="closeFriendRequest">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18 M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="friend-request-info">
+                <div class="user-avatar">
+                    <svg width="50" height="50" viewBox="0 0 24 24" fill="#00d4ff">
+                        <circle cx="12" cy="8" r="4" fill="currentColor"/>
+                        <path d="M4 21v-2a8 8 0 0 1 16 0v2" fill="currentColor"/>
+                    </svg>
+                </div>
+                <h3 id="friendRequestName">اسم المستخدم</h3>
+                <p id="friendRequestId">SHAFRA-ID</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-primary" id="confirmFriendRequest">إرسال طلب صداقة</button>
+                <button class="btn-secondary" id="cancelFriendRequest">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MESSAGE CONTEXT MENU ==================== -->
+    <div id="messageContextMenu" class="context-menu hidden">
+        <button class="context-menu-item" id="copyMessageBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span>نسخ الرسالة</span>
+        </button>
+    </div>
+
+    <!-- ==================== SCREENSHOT PROTECTION OVERLAY ==================== -->
+    <div id="screenshotOverlay" class="screenshot-overlay hidden">
+        <div class="screenshot-overlay-content">
+            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#ff4444" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M12 8v4 M12 16h.01"/>
+            </svg>
+            <p>تم تعطيل التقاط الشاشة</p>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
